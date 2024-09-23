@@ -6,7 +6,7 @@
     background: linear-gradient(to top, black, rgba(255, 255, 255, 0));
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: 2% 4%;
     z-index: 1;
 }
@@ -20,20 +20,36 @@
     font-size: clamp(25px, 2.5vw, 30px);
 }
 
-.icon {
-    transition: all 0.15s ease-in-out;
-    cursor: pointer;
-    font-size: 18px;
-    margin-top: 7px;
+.btnContainer{
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-.icon:hover {
+.btnContainer .icon {
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.btnContainer .icon:hover {
     transform: scale(1.3);
 }
 
-@media screen and (max-width: 830px){
-    .icon {
-        font-size: 16px;
-    }
+.btnContainer .expand {
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
+.btnContainer .expand:hover {
+    transform: scale(1.3);
+}
+
+.btnContainer a {
+    text-decoration: none;
+    color: white;
+}
