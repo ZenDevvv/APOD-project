@@ -1,0 +1,33 @@
+.container {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to top, black, rgba(255, 255, 255, 0));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2% 4%;
+    z-index: 1;
+}
+
+.title h2{
+    font-size: clamp(20px, 2vw, 30px);
+    font-weight: 100;
+}
+
+.title h1{
+    font-size: clamp(25px, 2.5vw, 30px);
+}
+
+.icon {
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.icon:hover {
+    transform: scale(1.3);
+
+}
+
