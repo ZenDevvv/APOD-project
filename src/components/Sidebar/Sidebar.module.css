@@ -43,6 +43,10 @@
   font-size: clamp(14px, 1.5vw, 20px);
 }
 
+.content .copyright {
+  font-size: 12px;
+}
+
 .icon {
     transition: all 0.15s ease-in-out;
     cursor: pointer;
