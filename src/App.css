@@ -1,5 +1,5 @@
 .app-container {
-  height: 100vh;
+  height: 100svh;
   width: 100vw;
   display: flex;
   position: relative;
@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100svh;
   font-size: 35px;
 }
 
