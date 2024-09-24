@@ -50,7 +50,7 @@
 .icon {
     transition: all 0.15s ease-in-out;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .icon:hover {
