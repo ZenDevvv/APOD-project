@@ -44,7 +44,7 @@
 }
 
 .title .apob{
-    font-size: clamp(15px, 1.5vw, 26px);
+    font-size: clamp(14px, 1.5vw, 26px);
     font-weight: 300;
     letter-spacing: 2px;
 }
