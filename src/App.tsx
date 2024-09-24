@@ -10,21 +10,20 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(false);
     const fetchData = async () => {
       const API_KEY = import.meta.env.VITE_API_KEY;
+      const today = new Date().toISOString().slice(0, 10);
       const url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
 
       // local storage for preventing unnecessary API calls
-      const today = new Date().toDateString();
       const localKey = `NASA-${today}`;
-      const cachedData = localStorage.getItem(localKey)
+      const cachedData = localStorage.getItem('NASA-bday') || localStorage.getItem(localKey)
 
       if (cachedData){
         const data = JSON.parse(cachedData);
         setNasaData(data);
         console.log('Fetched from cache today')
-        setIsLoading(true);
+        setIsLoading(false);
         return;
       }
       localStorage.clear()
@@ -34,7 +33,7 @@ function App() {
         const data = await res.json();
         localStorage.setItem(localKey, JSON.stringify(data));
         setNasaData(data);
-        setIsLoading(true);
+        setIsLoading(false);
         console.log('Fetched from API today')
       } catch (err) {
         console.log(err);
@@ -48,13 +47,14 @@ function App() {
     setIsSidebar(!isSidebar);
   };
 
-  return isLoading ? (
+  return !isLoading ? (
     <div className="app-container">
       <Main nasaData={nasaData} />
       <Sidebar
         nasaData={nasaData}
         toggleSidebar={toggleSidebar}
         isSidebar={isSidebar}
+        setNasaData={setNasaData}
       />
       <Title nasaData={nasaData} toggleSidebar={toggleSidebar} />
     </div>

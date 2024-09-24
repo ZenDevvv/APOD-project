@@ -11,9 +11,34 @@
     z-index: 1;
 }
 
+.title .apod {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.title .apod button {
+    background-color: transparent;
+    border: none;
+    outline: 1px solid white;
+    padding: 7px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.title .apod button:hover {
+    background-color: white;
+    color: black;
+}
+
 .title h2{
     font-size: clamp(20px, 2vw, 30px);
-    font-weight: 100;
+    font-weight: 300;
+    letter-spacing: 2px;
 }
 
 .title h1{
