@@ -31,13 +31,13 @@ const DatePicker: React.FC<DatePickerProps> = ({ setNasaData }) => {
     const formattedDate = formatDate(selectedDate);
     const url = `https://api.nasa.gov/planetary/apod?date=${formattedDate}&api_key=${API_KEY}`;
 
-    const cachedData = localStorage.getItem("NASA-bday");
-    if (cachedData) {
-      const data = JSON.parse(cachedData);
-      setNasaData(data);
-      console.log("Fetched from cache today");
-      return;
-    }
+    // const cachedData = localStorage.getItem("NASA-bday");
+    // if (cachedData) {
+    //   const data = JSON.parse(cachedData);
+    //   setNasaData(data);
+    //   console.log("Fetched from cache today");
+    //   return;
+    // }
 
     try {
       if (selectedDate) {
