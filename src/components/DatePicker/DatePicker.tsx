@@ -13,7 +13,6 @@ const DatePicker: React.FC<DatePickerProps> = ({ setNasaData }) => {
   //Yesterday date
   const maxDate = new Date(new Date().setDate(new Date().getDate() - 1));
 
-
   const handleDate = (date: Date | null) => {
     setSelectedDate(date);
   };
@@ -26,22 +25,28 @@ const DatePicker: React.FC<DatePickerProps> = ({ setNasaData }) => {
     return `${year}-${month}-${day}`;
   };
 
-
-
   const fetchDateApod = async () => {
+    console.log(selectedDate);
     const API_KEY = import.meta.env.VITE_API_KEY;
     const formattedDate = formatDate(selectedDate);
     const url = `https://api.nasa.gov/planetary/apod?date=${formattedDate}&api_key=${API_KEY}`;
 
-    const localKey = "NASA-bday";
-
+    const cachedData = localStorage.getItem("NASA-bday");
+    if (cachedData) {
+      const data = JSON.parse(cachedData);
+      setNasaData(data);
+      console.log("Fetched from cache today");
+      return;
+    }
 
     try {
-      const res = await fetch(url);
-      const data = await res.json();
-      console.log(data)
-      setNasaData(data);
-      localStorage.setItem(localKey, JSON.stringify(data));
+      if (selectedDate) {
+        const localKey = "NASA-bday";
+        const res = await fetch(url);
+        const data = await res.json();
+        setNasaData(data);
+        localStorage.setItem(localKey, JSON.stringify(data));
+      }
     } catch (err) {
       console.log(err);
     }
@@ -50,8 +55,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ setNasaData }) => {
   return (
     <div className={styles.container}>
       <h2 className={styles.birthday}>
-        Ever wondered what the universe looked like on your birthday? Let NASA
-        show you!
+        Ever wondered what the universe looked like on your birthday? Enter the date below and find out!
       </h2>
       <ReactDatePicker
         className={styles.calendar}
@@ -62,7 +66,9 @@ const DatePicker: React.FC<DatePickerProps> = ({ setNasaData }) => {
         minDate={minDate}
         maxDate={maxDate}
       />
-      <button onClick={fetchDateApod} className={styles.submitBtn}>Submit</button>
+      <button onClick={fetchDateApod} className={styles.submitBtn}>
+        Submit
+      </button>
     </div>
   );
 };
