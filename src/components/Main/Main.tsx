@@ -34,7 +34,7 @@ const Main: React.FC<MainProps> = ({ nasaData }) => {
     <div className={styles.imgContainer}>
       <img
         src={nasaData.hdurl}
-        alt="NASA IMAGE"
+        alt="IMAGE NOT FOUND"
         style={{
           transform: `translate(${offset.x}px, ${offset.y}px)`, // Apply translation
         }}

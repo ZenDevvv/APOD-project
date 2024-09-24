@@ -16,9 +16,9 @@ const Title: React.FC<TitleProps> = ({ toggleSidebar, nasaData }) => {
     <div className={styles.container}>
       <div className={styles.title}>
         {localStorage.getItem("NASA-bday") ? (
-          <h2>Astronomy Picture of your Birthday:</h2>
+          <h2 className={styles.apob}>Astronomy Picture of your Birthday:</h2>
         ) : (
-          <h2>Astronomy Picture of the Day:</h2>
+          <h2 className={styles.apod}>Astronomy Picture of the Day:</h2>
         )}
         <div className={styles.apod}>
           <h1>{nasaData.title}</h1>
