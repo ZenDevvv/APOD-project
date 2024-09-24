@@ -21,6 +21,7 @@
 
 .title .apod button {
     background-color: transparent;
+    color: white;
     border: none;
     outline: 1px solid white;
     padding: 7px 15px;

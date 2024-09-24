@@ -55,7 +55,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ setNasaData }) => {
   return (
     <div className={styles.container}>
       <h2 className={styles.birthday}>
-        Ever wondered what the universe looked like on your birthday? Enter the date below and find out!
+        Want to know the Astronomy Picture of your birthday? Enter the date below and find out!
       </h2>
       <ReactDatePicker
         className={styles.calendar}
