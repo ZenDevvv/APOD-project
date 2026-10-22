@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useEffect,
+  useEffectEvent,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { ExternalLink, Play, Search } from "lucide-react";
 import { displayBox, imageAt, type Apod } from "../../lib/apod";
 import type { Fit } from "../../lib/prefs";
@@ -20,6 +28,10 @@ interface Layer {
 }
 
 const LENS = 260;
+const LENS_PHONE = 190;
+const MIN_ZOOM = 1.5;
+const DEFAULT_ZOOM = 4;
+const MAX_ZOOM = 10;
 const media = (query: string) => typeof window !== "undefined" && window.matchMedia(query).matches;
 
 function withAutoplay(src: string) {
@@ -80,6 +92,7 @@ export default function Picture({ apod, fit, loupe, onSwipe }: PictureProps) {
   const box = useMemo(() => displayBox(), []);
   const src = apod.image ? imageAt(apod.image, box) : undefined;
   const isVideo = apod.mediaType === "video" && !!apod.video;
+  const lensSize = media("(max-width: 720px)") ? LENS_PHONE : LENS;
   const matte = useMatte(apod);
 
   // Cross-fade: the previous plate stays up until the next one has loaded.
@@ -101,41 +114,57 @@ export default function Picture({ apod, fit, loupe, onSwipe }: PictureProps) {
   const driftRef = useRef<HTMLDivElement>(null);
   const lensRef = useRef<HTMLDivElement>(null);
   const plates = useRef(new Map<string, HTMLImageElement>());
-  const [zoom, setZoom] = useState(3);
+  const driftPos = useRef({ x: 0, y: 0 });
   const lastPoint = useRef<{ x: number; y: number; touch: boolean } | null>(null);
+  const chosenZoom = useRef<number | null>(null);
   const swipe = useRef<{ x: number; y: number; t: number } | null>(null);
+  const [power, setPower] = useState<{ value: number; atLimit: boolean } | null>(null);
+
+  // The hint explains the loupe each time it is picked up, until the visitor starts looking around.
+  const [explored, setExplored] = useState(false);
+  const [loupeSeen, setLoupeSeen] = useState(loupe);
+  if (loupe !== loupeSeen) {
+    setLoupeSeen(loupe);
+    setExplored(false);
+  }
+  const markExplored = () => {
+    if (!explored) setExplored(true);
+  };
 
   // Full-resolution copy for the loupe, fetched only when the loupe is in hand.
   const hdSrc = apod.image ? (apod.image.resizable ? imageAt(apod.image, 4096) : apod.image.full) : undefined;
-  const [hdReady, setHdReady] = useState<string | null>(null);
+  const [hd, setHd] = useState<{ src: string; width: number } | null>(null);
   useEffect(() => {
     if (!loupe || !hdSrc) return;
     let live = true;
     const img = new Image();
-    img.onload = () => live && setHdReady(hdSrc);
+    img.onload = () => live && setHd({ src: hdSrc, width: img.naturalWidth });
     img.src = hdSrc;
     return () => {
       live = false;
     };
   }, [loupe, hdSrc]);
-  const lensSrc = hdReady === hdSrc ? hdSrc : src;
+  const hdLoaded = !!hd && hd.src === hdSrc;
+  const lensSrc = hdLoaded ? hdSrc : src;
 
   // Parallax drift, kept from the first version of the app: the plate follows the pointer.
+  // When the loupe is in hand the plate freezes where it is, so nothing jumps.
   const drift = !loupe && !isPlaying && !media("(prefers-reduced-motion: reduce)") && media("(pointer: fine)");
   useEffect(() => {
     const el = driftRef.current;
-    if (!el) return;
-    if (!drift) {
-      el.style.transform = "";
-      return;
-    }
-    let target = { x: 0, y: 0 };
-    let now = { x: 0, y: 0 };
+    if (!el || !drift) return;
+    let target = { ...driftPos.current };
     let frame = 0;
+    const apply = () => {
+      const p = driftPos.current;
+      el.style.transform = `translate3d(${p.x.toFixed(2)}px, ${p.y.toFixed(2)}px, 0) scale(1.06)`;
+    };
     const tick = () => {
-      now = { x: now.x + (target.x - now.x) * 0.075, y: now.y + (target.y - now.y) * 0.075 };
-      el.style.transform = `translate3d(${now.x.toFixed(2)}px, ${now.y.toFixed(2)}px, 0) scale(1.06)`;
-      frame = Math.abs(target.x - now.x) + Math.abs(target.y - now.y) > 0.05 ? requestAnimationFrame(tick) : 0;
+      const p = driftPos.current;
+      driftPos.current = { x: p.x + (target.x - p.x) * 0.075, y: p.y + (target.y - p.y) * 0.075 };
+      apply();
+      const q = driftPos.current;
+      frame = Math.abs(target.x - q.x) + Math.abs(target.y - q.y) > 0.05 ? requestAnimationFrame(tick) : 0;
     };
     const onMove = (event: PointerEvent) => {
       target = {
@@ -144,7 +173,7 @@ export default function Picture({ apod, fit, loupe, onSwipe }: PictureProps) {
       };
       if (!frame) frame = requestAnimationFrame(tick);
     };
-    el.style.transform = "scale(1.06)";
+    apply();
     window.addEventListener("pointermove", onMove);
     return () => {
       window.removeEventListener("pointermove", onMove);
@@ -152,63 +181,128 @@ export default function Picture({ apod, fit, loupe, onSwipe }: PictureProps) {
     };
   }, [drift]);
 
-  const frontPlate = () => {
-    const front = [...layers].reverse().find((l) => l.loaded && !l.failed);
-    return front ? plates.current.get(front.src) : undefined;
-  };
+  const front = [...layers].reverse().find((l) => l.loaded && !l.failed);
 
-  const placeLens = (clientX: number, clientY: number, touch: boolean, magnification = zoom) => {
+  /**
+   * Put the lens over a point of the picture. Magnification is relative to the picture as shown,
+   * and never goes past the detail the file actually holds.
+   */
+  const placeLens = (clientX: number, clientY: number, touch: boolean, requested?: number) => {
     const lens = lensRef.current;
-    const img = frontPlate();
+    const img = front ? plates.current.get(front.src) : undefined;
     const win = windowRef.current;
     if (!lens || !img || !win || !img.naturalWidth) return;
-    lastPoint.current = { x: clientX, y: clientY, touch };
     const rect = img.getBoundingClientRect();
     const fitScale = (fit === "cover" ? Math.max : Math.min)(rect.width / img.naturalWidth, rect.height / img.naturalHeight);
     const w = img.naturalWidth * fitScale;
     const h = img.naturalHeight * fitScale;
-    const u = (clientX - (rect.left + (rect.width - w) / 2)) / w;
-    const v = (clientY - (rect.top + (rect.height - h) / 2)) / h;
-    const outside = u < 0 || u > 1 || v < 0 || v > 1;
-    lens.dataset.visible = outside ? "false" : "true";
-    if (outside) return;
-    const zw = w * magnification;
-    const zh = h * magnification;
-    const r = LENS / 2;
+    const left = rect.left + (rect.width - w) / 2;
+    const top = rect.top + (rect.height - h) / 2;
     const frame = win.getBoundingClientRect();
+    // keep the point on the visible part of the picture
+    const x = Math.min(Math.max(clientX, Math.max(left, frame.left)), Math.min(left + w, frame.right));
+    const y = Math.min(Math.max(clientY, Math.max(top, frame.top)), Math.min(top + h, frame.bottom));
+    lastPoint.current = { x, y, touch };
+
+    const native = hdLoaded && hd ? hd.width : img.naturalWidth;
+    const limit = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, native / w));
+    const want = requested ?? chosenZoom.current ?? Math.min(DEFAULT_ZOOM, limit);
+    const z = Math.min(Math.max(MIN_ZOOM, want), limit);
+    if (requested !== undefined) chosenZoom.current = z;
+    const next = { value: Math.round(z * 10) / 10, atLimit: z >= limit - 0.05 };
+    if (!power || power.value !== next.value || power.atLimit !== next.atLimit) setPower(next);
+
+    const u = (x - left) / w;
+    const v = (y - top) / h;
+    const zw = w * z;
+    const zh = h * z;
+    const r = lensSize / 2;
     const lift = touch ? r + 36 : 0;
-    lens.style.transform = `translate3d(${clientX - frame.left - r}px, ${clientY - frame.top - r - lift}px, 0)`;
+    lens.dataset.visible = "true";
+    lens.style.transform = `translate3d(${x - frame.left - r}px, ${y - frame.top - r - lift}px, 0)`;
     lens.style.backgroundSize = `${zw}px ${zh}px`;
     lens.style.backgroundPosition = `${-(u * zw - r)}px ${-(v * zh - r)}px`;
   };
 
+  // A new picture or a fresh pick-up starts from the centre at the default power.
+  useEffect(() => {
+    lastPoint.current = null;
+    chosenZoom.current = null;
+  }, [apod.date, loupe]);
+
+  // Show the lens the moment the loupe is picked up (centred), and refresh it when the full-detail copy lands.
+  const showLens = useEffectEvent(() => {
+    const win = windowRef.current;
+    if (!win) return;
+    const p = lastPoint.current;
+    if (p) return placeLens(p.x, p.y, p.touch);
+    const r = win.getBoundingClientRect();
+    placeLens(r.left + r.width / 2, r.top + r.height / 2, false);
+  });
+  useEffect(() => {
+    if (loupe) showLens();
+  }, [loupe, lensSrc, front?.src]);
+
+  // Keyboard: arrows steer the lens (Shift for bigger steps), + and - change power.
+  const onLoupeKey = useEffectEvent((event: KeyboardEvent) => {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if ((event.target as HTMLElement).closest("input, select, textarea")) return;
+    const p = lastPoint.current;
+    if (!p) return;
+    const step = event.shiftKey ? 90 : 30;
+    const moves: Record<string, [number, number]> = {
+      ArrowLeft: [-step, 0],
+      ArrowRight: [step, 0],
+      ArrowUp: [0, -step],
+      ArrowDown: [0, step],
+    };
+    if (moves[event.key]) {
+      event.preventDefault();
+      markExplored();
+      placeLens(p.x + moves[event.key][0], p.y + moves[event.key][1], false);
+    } else if (event.key === "+" || event.key === "=" || event.key === "-" || event.key === "_") {
+      event.preventDefault();
+      markExplored();
+      const current = power?.value ?? DEFAULT_ZOOM;
+      placeLens(p.x, p.y, p.touch, event.key === "-" || event.key === "_" ? current / 1.25 : current * 1.25);
+    }
+  });
+  useEffect(() => {
+    if (!loupe) return;
+    const onKey = (event: KeyboardEvent) => onLoupeKey(event);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [loupe]);
+
   // Wheel changes magnification; it must be a non-passive listener to stop the page scrolling.
+  const onLoupeWheel = useEffectEvent((event: WheelEvent) => {
+    event.preventDefault();
+    markExplored();
+    const p = lastPoint.current;
+    if (p) placeLens(p.x, p.y, p.touch, (power?.value ?? DEFAULT_ZOOM) * (1 - event.deltaY * 0.0015));
+  });
   useEffect(() => {
     const win = windowRef.current;
     if (!win || !loupe) return;
-    const onWheel = (event: WheelEvent) => {
-      event.preventDefault();
-      const next = Math.min(10, Math.max(1.5, zoom * (1 - event.deltaY * 0.0015)));
-      setZoom(next);
-      const p = lastPoint.current;
-      if (p) placeLens(p.x, p.y, p.touch, next);
-    };
+    const onWheel = (event: WheelEvent) => onLoupeWheel(event);
     win.addEventListener("wheel", onWheel, { passive: false });
     return () => win.removeEventListener("wheel", onWheel);
-  });
+  }, [loupe]);
 
   const onPointerDown = (event: ReactPointerEvent) => {
     if (loupe) {
+      markExplored();
       placeLens(event.clientX, event.clientY, event.pointerType !== "mouse");
       return;
     }
     if (event.pointerType !== "mouse") swipe.current = { x: event.clientX, y: event.clientY, t: Date.now() };
   };
   const onPointerMove = (event: ReactPointerEvent) => {
-    if (loupe && (event.pointerType === "mouse" || event.buttons)) placeLens(event.clientX, event.clientY, event.pointerType !== "mouse");
+    if (!loupe || (event.pointerType !== "mouse" && !event.buttons)) return;
+    markExplored();
+    placeLens(event.clientX, event.clientY, event.pointerType !== "mouse");
   };
   const onPointerUp = (event: ReactPointerEvent) => {
-    if (loupe && event.pointerType !== "mouse" && lensRef.current) lensRef.current.dataset.visible = "false";
     const start = swipe.current;
     swipe.current = null;
     if (!start || loupe || !onSwipe) return;
@@ -228,8 +322,8 @@ export default function Picture({ apod, fit, loupe, onSwipe }: PictureProps) {
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={() => (swipe.current = null)}
-      onPointerLeave={() => {
-        if (lensRef.current) lensRef.current.dataset.visible = "false";
+      onPointerLeave={(event) => {
+        if (event.pointerType === "mouse" && lensRef.current) lensRef.current.dataset.visible = "false";
       }}
     >
       <div ref={driftRef} className={styles.drift}>
@@ -315,18 +409,34 @@ export default function Picture({ apod, fit, loupe, onSwipe }: PictureProps) {
           ref={lensRef}
           className={styles.lens}
           data-visible="false"
-          style={{ backgroundImage: `url("${lensSrc}")`, width: LENS, height: LENS }}
+          style={{ backgroundImage: `url("${lensSrc}")`, width: lensSize, height: lensSize }}
           aria-hidden="true"
         >
           <span className={`caps ${styles.lensLabel}`}>
-            {hdReady === hdSrc ? (
-              <>
-                <Search size={11} strokeWidth={2.4} /> {zoom.toFixed(1)}×
-              </>
+            <Search size={11} strokeWidth={2.4} />
+            {!hdLoaded ? (
+              "Fetching full detail…"
             ) : (
-              "Fetching detail…"
+              <>
+                {power ? `${power.value.toFixed(1)}×` : ""}
+                <span className={styles.lensNote}>{power?.atLimit ? " · full detail" : " · scroll to zoom"}</span>
+              </>
             )}
           </span>
+        </div>
+      )}
+
+      {loupe && apod.image && (
+        <div className={styles.hint} data-explored={explored} role="status">
+          <Search size={16} aria-hidden="true" />
+          <p>
+            <strong>Loupe.</strong>{" "}
+            <span className={styles.hintFine}>
+              Move over the picture to see it up close. Scroll or press <kbd>+</kbd> <kbd>−</kbd> to zoom, arrow keys
+              to steer, <kbd>Esc</kbd> to put it away.
+            </span>
+            <span className={styles.hintTouch}>Drag across the picture to see it up close.</span>
+          </p>
         </div>
       )}
     </div>

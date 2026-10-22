@@ -173,3 +173,82 @@
   color: var(--ink);
   font-size: 11px;
 }
+
+.lensNote {
+  color: var(--ink-3);
+}
+
+/* explains the loupe each time it is picked up; fades once the visitor starts looking */
+.hint {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  z-index: 6;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: max-content;
+  max-width: min(560px, calc(100% - 28px));
+  padding: 11px 15px 12px;
+  transform: translateX(-50%);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 2px;
+  box-shadow: 0 12px 30px -10px rgb(0 0 0 / 0.75);
+  font-size: 14.5px;
+  line-height: 1.45;
+  pointer-events: none;
+  animation: hint-in 320ms var(--ease-out);
+  transition: opacity 500ms ease 1.6s, transform 500ms var(--ease-out) 1.6s;
+}
+
+.hint svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--cancel);
+}
+
+.hint strong {
+  font-weight: 700;
+}
+
+.hint kbd {
+  display: inline-block;
+  min-width: 20px;
+  padding: 0 5px;
+  font-family: var(--font-face);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 2px;
+}
+
+.hint[data-explored="true"] {
+  opacity: 0;
+  transform: translate(-50%, -6px);
+}
+
+.hintTouch {
+  display: none;
+}
+
+@keyframes hint-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+  }
+}
+
+@media (pointer: coarse) {
+  .hintFine,
+  .lensNote {
+    display: none;
+  }
+
+  .hintTouch {
+    display: inline;
+  }
+}

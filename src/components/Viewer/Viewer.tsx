@@ -196,6 +196,8 @@ export default function Viewer({ date, birthday: birthdayRoute }: { date?: ISODa
       if (target.closest("input, select, textarea, [contenteditable='true']")) return;
       if (panel === "date" || panel === "birthday") return;
       const key = event.key;
+      // with the loupe in hand the arrow keys steer the lens instead of changing day
+      if (loupe && key.startsWith("Arrow")) return;
       const act: Record<string, () => void> = {
         ArrowLeft: () => travel(-1),
         ArrowRight: () => travel(1),
@@ -277,7 +279,7 @@ export default function Viewer({ date, birthday: birthdayRoute }: { date?: ISODa
         <BookOpen size={16} aria-hidden="true" />
         <span>Catalogue</span>
       </button>
-      <button type="button" className={styles.tool} aria-pressed={loupe} onClick={() => setLoupe(!loupe)} disabled={!apod.image || apod.mediaType === "video"} title="Loupe (L)">
+      <button type="button" className={styles.tool} aria-pressed={loupe} onClick={() => setLoupe(!loupe)} disabled={!apod.image || apod.mediaType === "video"} title="Loupe: see the picture up close in full detail (L)">
         <Search size={16} aria-hidden="true" />
         <span>Loupe</span>
       </button>
@@ -464,7 +466,8 @@ export default function Viewer({ date, birthday: birthdayRoute }: { date?: ISODa
               <X size={18} aria-hidden="true" />
             </button>
           </div>
-          <div className={styles.moreGrid} onClick={(e) => (e.target as HTMLElement).closest("button, a") && !(e.target as HTMLElement).closest("[aria-pressed]") && setPanel(null)}>
+          {/* any tool closes the sheet so its effect is visible; tools that open their own panel keep it */}
+          <div className={styles.moreGrid} onClick={(e) => (e.target as HTMLElement).closest("button, a") && setPanel((p) => (p === "more" ? null : p))}>
             {travelTools}
             {tools}
           </div>
