@@ -1,0 +1,65 @@
+/* Stamp paper with real perforation teeth.
+   The paper is a masked layer behind the content, so moving content
+   (parallax, loupe) never re-runs the mask. */
+
+.perf {
+  --perf-r: 6px;
+  --perf-pitch: 18px;
+  --perf-margin: 12px;
+  --perf-paper: var(--paper);
+  position: relative;
+  isolation: isolate;
+  padding: calc(var(--perf-r) + var(--perf-margin));
+}
+
+.perf::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--perf-paper);
+  -webkit-mask:
+    radial-gradient(circle at 50% 50%, #0000 var(--perf-r), #000 calc(var(--perf-r) + 0.6px))
+      calc(var(--perf-pitch) / -2) calc(var(--perf-pitch) / -2) / var(--perf-pitch) var(--perf-pitch) round,
+    linear-gradient(#000 0 0) 50% 50% / calc(100% - 2 * var(--perf-r)) calc(100% - 2 * var(--perf-r)) no-repeat;
+  mask:
+    radial-gradient(circle at 50% 50%, #0000 var(--perf-r), #000 calc(var(--perf-r) + 0.6px))
+      calc(var(--perf-pitch) / -2) calc(var(--perf-pitch) / -2) / var(--perf-pitch) var(--perf-pitch) round,
+    linear-gradient(#000 0 0) 50% 50% / calc(100% - 2 * var(--perf-r)) calc(100% - 2 * var(--perf-r)) no-repeat;
+}
+
+/* soft lift off the album leaf */
+.perf::after {
+  content: "";
+  position: absolute;
+  inset: var(--perf-r);
+  z-index: -2;
+  border-radius: 1px;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.45),
+    0 14px 36px -14px rgb(0 0 0 / 0.75);
+}
+
+.flat::after {
+  box-shadow: none;
+}
+
+.small {
+  --perf-r: 3.5px;
+  --perf-pitch: 11px;
+  --perf-margin: 5px;
+}
+
+.medium {
+  --perf-r: 4.5px;
+  --perf-pitch: 14px;
+  --perf-margin: 8px;
+}
+
+@media (max-width: 720px) {
+  .large {
+    --perf-r: 4.5px;
+    --perf-pitch: 13px;
+    --perf-margin: 7px;
+  }
+}

@@ -1,0 +1,175 @@
+.window {
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  background: var(--matte, #07080c);
+  transition: background-color 600ms ease;
+  /* the thin frame line printed around a stamp's picture */
+  box-shadow: inset 0 0 0 1px rgb(29 26 43 / 0.35);
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.drift {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 520ms var(--ease-out);
+}
+
+.plate[data-loaded="true"] {
+  opacity: 1;
+}
+
+.contain {
+  object-fit: contain;
+}
+
+.developing {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  color: var(--leaf-ink-2);
+  font-size: 11px;
+  animation: pulse 1.4s var(--ease-in-out) infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0.45;
+  }
+}
+
+.notice {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+  color: var(--leaf-ink);
+  font-size: 17px;
+}
+
+.notice a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--leaf-ink);
+  padding: 10px 14px;
+  border: 1px solid var(--leaf-line);
+  text-decoration: none;
+}
+
+.notice a:hover {
+  background: var(--leaf-raised);
+}
+
+.play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  color: var(--paper);
+  background: rgb(5 6 10 / 0.28);
+  transition: background-color 200ms ease;
+}
+
+.play:hover {
+  background: rgb(5 6 10 / 0.12);
+}
+
+.play :global(.caps) {
+  padding: 6px 10px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.playDisc {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  padding-left: 5px;
+  box-shadow: 0 10px 30px -6px rgb(0 0 0 / 0.6);
+  transition: transform 260ms var(--ease-out);
+}
+
+.play:hover .playDisc {
+  transform: scale(1.06);
+}
+
+.play:focus-visible {
+  outline-offset: -6px;
+}
+
+.film {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+
+.film iframe,
+.film video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* the philatelist's loupe */
+.loupeMode {
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.lens {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  border-radius: 50%;
+  background-color: #000;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 160ms ease;
+  box-shadow:
+    0 0 0 3px var(--paper),
+    0 18px 40px -10px rgb(0 0 0 / 0.75);
+}
+
+.lens[data-visible="true"] {
+  opacity: 1;
+}
+
+.lensLabel {
+  position: absolute;
+  left: 50%;
+  bottom: -32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  white-space: nowrap;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 11px;
+}

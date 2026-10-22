@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Impeccable: the engine binary downloads on first run; review captures are local
+.claude/skills/impeccable/scripts/bin/
+.impeccable/review/
+.impeccable/questions/
+.impeccable/config.local.json

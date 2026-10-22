@@ -1,0 +1,261 @@
+.page {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 14px var(--gutter) 72px;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px 32px;
+  margin-bottom: 22px;
+}
+
+.titleRow {
+  display: grid;
+  gap: 6px;
+}
+
+.title {
+  font-stretch: 110%;
+  font-weight: 760;
+  font-size: clamp(34px, 2rem + 2.4vw, 68px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: var(--leaf-ink);
+}
+
+.sub {
+  font-family: var(--font-text);
+  font-size: 16px;
+  color: var(--leaf-ink-2);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.step {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 12px;
+  color: var(--leaf-ink-2);
+  text-decoration: none;
+  font-stretch: 108%;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.step:hover {
+  background: var(--leaf-raised);
+  color: var(--leaf-ink);
+}
+
+.off {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.jump {
+  display: flex;
+  gap: 6px;
+}
+
+.jump select {
+  appearance: none;
+  height: 40px;
+  padding: 0 30px 0 12px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23aeadb8' stroke-width='2'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E") right 10px center / 12px no-repeat,
+    var(--leaf-raised);
+  border: 1px solid var(--leaf-line);
+  border-radius: 2px;
+  color: var(--leaf-ink);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.jump select:hover {
+  border-color: var(--leaf-ink-3);
+}
+
+/* the printed sheet: selvage paper around a pane of perforated stamps */
+.sheet {
+  padding: 12px 16px 14px;
+  background: var(--paper);
+  color: var(--ink-3);
+  border-radius: 1px;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 30px 60px -30px rgb(0 0 0 / 0.9);
+}
+
+.selvageTop {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  padding: 0 0 8px;
+  text-align: center;
+}
+
+.selvageTop :global(.caps) {
+  font-size: 11px;
+}
+
+.pane {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  background: #0d1016;
+}
+
+.cell:first-child {
+  grid-column-start: calc(var(--offset) + 1);
+}
+
+.link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  outline-offset: -4px;
+}
+
+a.link:hover img {
+  transform: scale(1.06);
+}
+
+a.link:focus-visible {
+  outline: 2px solid var(--focus-paper);
+}
+
+.selvageBottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  padding-top: 12px;
+}
+
+.selvageBottom :global(.caps) {
+  font-size: 11px;
+}
+
+/* colour registration marks printed in the margin of real sheets */
+.registration {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.registration i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cancel);
+}
+
+.registration i:nth-child(2) {
+  background: var(--registered);
+}
+
+.registration i:nth-child(3) {
+  background: var(--ink);
+}
+
+.registration i:nth-child(4) {
+  background: #3b7f8c;
+}
+
+.birthdayLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  color: var(--cancel);
+  text-decoration: none;
+  padding: 6px 0;
+  border-bottom: 1.5px solid currentColor;
+}
+
+.birthdayLink:focus-visible {
+  outline-color: var(--focus-paper);
+}
+
+.error {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+  padding: 40px 0;
+  font-family: var(--font-text);
+  font-size: 17px;
+  color: var(--leaf-ink-2);
+}
+
+.error button {
+  min-height: 42px;
+  padding: 0 14px;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 2px;
+}
+
+@media (max-width: 860px) {
+  .selvageTop {
+    display: none;
+  }
+
+  .pane {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .cell:first-child {
+    grid-column-start: auto;
+  }
+
+  .cell:empty {
+    display: none;
+  }
+
+  /* on phones a month's unissued days collapse to the next one due */
+  .cell[data-future] ~ .cell[data-future] {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding-inline: 10px;
+  }
+
+  .sheet {
+    padding: 10px 10px 12px;
+  }
+
+  .pane {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .step span {
+    display: none;
+  }
+
+  .step {
+    border: 1px solid var(--leaf-line);
+  }
+}

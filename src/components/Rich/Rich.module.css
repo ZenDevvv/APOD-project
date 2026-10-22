@@ -1,0 +1,30 @@
+.issue {
+  color: var(--cancel);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: color-mix(in srgb, var(--cancel) 45%, transparent);
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 160ms ease;
+}
+
+.issue:hover {
+  text-decoration-color: var(--cancel);
+}
+
+.external {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
+  text-underline-offset: 0.22em;
+}
+
+.external:hover {
+  text-decoration-style: solid;
+}
+
+.issue:focus-visible,
+.external:focus-visible {
+  outline-color: var(--focus-paper);
+}

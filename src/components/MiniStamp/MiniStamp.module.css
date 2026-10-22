@@ -1,0 +1,134 @@
+.stamp {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  color: var(--ink);
+}
+
+.window {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: 4 / 3.6;
+  overflow: hidden;
+  background: #090b10;
+  outline: 1px solid rgb(29 26 43 / 0.25);
+  outline-offset: -1px;
+}
+
+.window img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out);
+}
+
+.note {
+  color: var(--leaf-ink-3);
+  font-size: 11px;
+}
+
+.film {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 1px;
+}
+
+.band {
+  background: var(--perf-paper);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 8px;
+  min-height: 0;
+  padding-bottom: 3px;
+}
+
+.value {
+  font-stretch: 80%;
+  font-weight: 760;
+  font-size: 19px;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.caption {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 11.5px;
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.loading .window {
+  background: var(--paper-shade);
+  outline: none;
+  animation: breathe 1.6s var(--ease-in-out) infinite alternate;
+}
+
+.missing,
+.pending {
+  --perf-paper: var(--paper-shade);
+}
+
+.missing .window {
+  background: transparent;
+  outline: 1px dashed var(--paper-line);
+}
+
+.missing .note {
+  color: var(--ink-3);
+}
+
+.missing .value,
+.pending .value {
+  color: var(--ink-3);
+}
+
+.pending {
+  --perf-paper: #1a1e28;
+}
+
+.pending .window {
+  background: transparent;
+  outline: 1px dashed #343a4a;
+}
+
+.pending .value,
+.pending .caption {
+  color: var(--leaf-ink-2);
+}
+
+@keyframes breathe {
+  to {
+    opacity: 0.55;
+  }
+}
+
+.stacked .band {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3px;
+}
+
+.stacked .value {
+  font-size: 15px;
+}
+
+.stacked .caption {
+  font-size: 12.5px;
+}
