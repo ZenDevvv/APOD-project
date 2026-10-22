@@ -1,5 +1,7 @@
 # Skypost
 
+**Live: [zendevvv.github.io/APOD-project](https://zendevvv.github.io/APOD-project/)**
+
 NASA's Astronomy Picture of the Day, presented as a stamp collection. Every day since 16 June 1995 has its own
 picture of the universe; Skypost prints each one as a perforated stamp and lets you re-set the postmark to any
 date you like.
@@ -52,6 +54,8 @@ npm run dev       # http://localhost:5173
 npm run build     # type-check and build to dist/
 npm run lint
 ```
+
+Every push to `main` builds and deploys to GitHub Pages through `.github/workflows/deploy.yml`.
 
 Built with React 19, TypeScript and Vite. Fonts are self-hosted (Archivo and Literata via Fontsource) and icons come
 from Lucide.
