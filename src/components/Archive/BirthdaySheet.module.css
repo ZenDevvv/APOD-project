@@ -1,0 +1,129 @@
+.years {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.picker {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  max-width: 420px;
+  padding: 20px 22px 22px;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 2px;
+}
+
+.picker :focus-visible {
+  outline-color: var(--focus-paper);
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+
+.fields label {
+  display: grid;
+  gap: 6px;
+}
+
+.fields .caps,
+.fields :global(.caps) {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.fields select {
+  appearance: none;
+  height: 50px;
+  padding: 0 12px;
+  text-align: center;
+  text-align-last: center;
+  font-stretch: 88%;
+  font-weight: 740;
+  font-size: 20px;
+  color: var(--paper);
+  background: var(--ink);
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.fields option {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.remember input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--registered);
+}
+
+.go {
+  min-height: 46px;
+  padding: 0 18px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 2px;
+}
+
+.go:hover {
+  background: var(--cancel);
+}
+
+.change {
+  position: relative;
+}
+
+.change summary {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 12px;
+  color: var(--leaf-ink-2);
+  border: 1px solid var(--leaf-line);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.change summary::-webkit-details-marker {
+  display: none;
+}
+
+.change summary:hover,
+.change[open] summary {
+  color: var(--leaf-ink);
+  background: var(--leaf-raised);
+}
+
+.change[open] .picker {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 10;
+  width: min(420px, calc(100vw - 20px));
+  box-shadow: 0 24px 50px -16px rgb(0 0 0 / 0.85);
+}
+
+@media (max-width: 560px) {
+  .years {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .change[open] .picker {
+    right: auto;
+    left: 0;
+  }
+}

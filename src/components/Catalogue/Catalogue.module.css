@@ -1,0 +1,184 @@
+.sheet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 18px clamp(20px, 2.4vw, 32px) 32px;
+  background: var(--paper);
+  color: var(--ink);
+  scrollbar-color: var(--paper-line) transparent;
+  outline: none;
+}
+
+.sheet :focus-visible {
+  outline-color: var(--focus-paper);
+}
+
+.sheet::-webkit-scrollbar-thumb {
+  background: var(--paper-line);
+  border-color: var(--paper);
+}
+
+.top {
+  position: sticky;
+  top: -18px;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin: -18px calc(-1 * clamp(20px, 2.4vw, 32px)) 0;
+  padding: 12px clamp(14px, 2vw, 24px) 8px;
+  background: linear-gradient(var(--paper) 70%, transparent);
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  color: var(--ink-2);
+  border-radius: 2px;
+}
+
+.close:hover {
+  background: var(--paper-shade);
+  color: var(--ink);
+}
+
+.title {
+  font-stretch: 90%;
+  font-weight: 720;
+  font-size: clamp(26px, 2.4vw, 34px);
+  line-height: 1.06;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+  margin-top: -6px;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+  padding: 14px 0 16px;
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.facts > div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.facts .full {
+  grid-column: 1 / -1;
+}
+
+.facts dt {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.facts dd {
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.explanation {
+  font-family: var(--font-text);
+  font-size: 17px;
+  line-height: 1.68;
+  color: var(--ink);
+  max-width: 64ch;
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+.teaser {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--paper-shade);
+  border-radius: 2px;
+  font-size: 15px;
+}
+
+.teaser :global(.caps) {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.teaserText {
+  font-family: var(--font-text);
+  font-style: italic;
+}
+
+.countdown {
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.teaserLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-text);
+  font-style: italic;
+  color: var(--cancel);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--ink-3);
+  border-radius: 2px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.links a:hover {
+  background: var(--paper-shade);
+}
+
+.birthday {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding-top: 16px;
+  border-top: 1px solid var(--paper-line);
+}
+
+.birthday p {
+  font-family: var(--font-text);
+  font-size: 16px;
+}
+
+.birthday button {
+  padding: 11px 14px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 2px;
+}
+
+.birthday button:hover {
+  background: var(--cancel);
+}
+
+.small {
+  margin-top: auto;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}

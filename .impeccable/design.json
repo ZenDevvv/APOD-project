@@ -1,0 +1,435 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T09:19:06+00:00",
+  "title": "Design System: Skypost",
+  "extensions": {
+    "colorMeta": {
+      "cancellation-violet": {
+        "role": "primary",
+        "displayName": "Cancellation Violet",
+        "tonalRamp": [
+          "oklch(15% 0.130 289.0)",
+          "oklch(26% 0.130 289.0)",
+          "oklch(37% 0.130 289.0)",
+          "oklch(48% 0.130 289.0)",
+          "oklch(59% 0.130 289.0)",
+          "oklch(70% 0.130 289.0)",
+          "oklch(82% 0.130 289.0)",
+          "oklch(95% 0.130 289.0)"
+        ]
+      },
+      "cancellation-violet-soft": {
+        "role": "primary",
+        "displayName": "Cancellation Violet, soft pull",
+        "tonalRamp": [
+          "oklch(15% 0.134 289.9)",
+          "oklch(26% 0.134 289.9)",
+          "oklch(37% 0.134 289.9)",
+          "oklch(48% 0.134 289.9)",
+          "oklch(59% 0.134 289.9)",
+          "oklch(70% 0.134 289.9)",
+          "oklch(82% 0.134 289.9)",
+          "oklch(95% 0.134 289.9)"
+        ]
+      },
+      "registered-red": {
+        "role": "secondary",
+        "displayName": "Registered Red",
+        "tonalRamp": [
+          "oklch(15% 0.182 21.1)",
+          "oklch(26% 0.182 21.1)",
+          "oklch(37% 0.182 21.1)",
+          "oklch(48% 0.182 21.1)",
+          "oklch(59% 0.182 21.1)",
+          "oklch(70% 0.182 21.1)",
+          "oklch(82% 0.182 21.1)",
+          "oklch(95% 0.182 21.1)"
+        ]
+      },
+      "registered-red-light": {
+        "role": "secondary",
+        "displayName": "Registered Red, light pull",
+        "tonalRamp": [
+          "oklch(15% 0.163 18.2)",
+          "oklch(26% 0.163 18.2)",
+          "oklch(37% 0.163 18.2)",
+          "oklch(48% 0.163 18.2)",
+          "oklch(59% 0.163 18.2)",
+          "oklch(70% 0.163 18.2)",
+          "oklch(82% 0.163 18.2)",
+          "oklch(95% 0.163 18.2)"
+        ]
+      },
+      "stockbook-black": {
+        "role": "neutral",
+        "displayName": "Stockbook Black",
+        "tonalRamp": [
+          "oklch(15% 0.011 268.0)",
+          "oklch(26% 0.011 268.0)",
+          "oklch(37% 0.011 268.0)",
+          "oklch(48% 0.011 268.0)",
+          "oklch(59% 0.011 268.0)",
+          "oklch(70% 0.011 268.0)",
+          "oklch(82% 0.011 268.0)",
+          "oklch(95% 0.011 268.0)"
+        ]
+      },
+      "stockbook-raised": {
+        "role": "neutral",
+        "displayName": "Stockbook Raised Strip",
+        "tonalRamp": [
+          "oklch(15% 0.017 268.8)",
+          "oklch(26% 0.017 268.8)",
+          "oklch(37% 0.017 268.8)",
+          "oklch(48% 0.017 268.8)",
+          "oklch(59% 0.017 268.8)",
+          "oklch(70% 0.017 268.8)",
+          "oklch(82% 0.017 268.8)",
+          "oklch(95% 0.017 268.8)"
+        ]
+      },
+      "stockbook-rule": {
+        "role": "neutral",
+        "displayName": "Stockbook Rule",
+        "tonalRamp": [
+          "oklch(15% 0.027 269.3)",
+          "oklch(26% 0.027 269.3)",
+          "oklch(37% 0.027 269.3)",
+          "oklch(48% 0.027 269.3)",
+          "oklch(59% 0.027 269.3)",
+          "oklch(70% 0.027 269.3)",
+          "oklch(82% 0.027 269.3)",
+          "oklch(95% 0.027 269.3)"
+        ]
+      },
+      "leaf-ink": {
+        "role": "neutral",
+        "displayName": "Leaf Ink",
+        "tonalRamp": [
+          "oklch(15% 0.008 91.5)",
+          "oklch(26% 0.008 91.5)",
+          "oklch(37% 0.008 91.5)",
+          "oklch(48% 0.008 91.5)",
+          "oklch(59% 0.008 91.5)",
+          "oklch(70% 0.008 91.5)",
+          "oklch(82% 0.008 91.5)",
+          "oklch(95% 0.008 91.5)"
+        ]
+      },
+      "leaf-ink-muted": {
+        "role": "neutral",
+        "displayName": "Leaf Ink, muted",
+        "tonalRamp": [
+          "oklch(15% 0.016 290.2)",
+          "oklch(26% 0.016 290.2)",
+          "oklch(37% 0.016 290.2)",
+          "oklch(48% 0.016 290.2)",
+          "oklch(59% 0.016 290.2)",
+          "oklch(70% 0.016 290.2)",
+          "oklch(82% 0.016 290.2)",
+          "oklch(95% 0.016 290.2)"
+        ]
+      },
+      "leaf-ink-faint": {
+        "role": "neutral",
+        "displayName": "Leaf Ink, faint",
+        "tonalRamp": [
+          "oklch(15% 0.021 289.0)",
+          "oklch(26% 0.021 289.0)",
+          "oklch(37% 0.021 289.0)",
+          "oklch(48% 0.021 289.0)",
+          "oklch(59% 0.021 289.0)",
+          "oklch(70% 0.021 289.0)",
+          "oklch(82% 0.021 289.0)",
+          "oklch(95% 0.021 289.0)"
+        ]
+      },
+      "stamp-paper": {
+        "role": "neutral",
+        "displayName": "Stamp Paper",
+        "tonalRamp": [
+          "oklch(15% 0.005 95.1)",
+          "oklch(26% 0.005 95.1)",
+          "oklch(37% 0.005 95.1)",
+          "oklch(48% 0.005 95.1)",
+          "oklch(59% 0.005 95.1)",
+          "oklch(70% 0.005 95.1)",
+          "oklch(82% 0.005 95.1)",
+          "oklch(95% 0.005 95.1)"
+        ]
+      },
+      "stamp-paper-shade": {
+        "role": "neutral",
+        "displayName": "Stamp Paper Shade",
+        "tonalRamp": [
+          "oklch(15% 0.008 91.5)",
+          "oklch(26% 0.008 91.5)",
+          "oklch(37% 0.008 91.5)",
+          "oklch(48% 0.008 91.5)",
+          "oklch(59% 0.008 91.5)",
+          "oklch(70% 0.008 91.5)",
+          "oklch(82% 0.008 91.5)",
+          "oklch(95% 0.008 91.5)"
+        ]
+      },
+      "stamp-paper-rule": {
+        "role": "neutral",
+        "displayName": "Stamp Paper Rule",
+        "tonalRamp": [
+          "oklch(15% 0.011 89.7)",
+          "oklch(26% 0.011 89.7)",
+          "oklch(37% 0.011 89.7)",
+          "oklch(48% 0.011 89.7)",
+          "oklch(59% 0.011 89.7)",
+          "oklch(70% 0.011 89.7)",
+          "oklch(82% 0.011 89.7)",
+          "oklch(95% 0.011 89.7)"
+        ]
+      },
+      "printing-ink": {
+        "role": "neutral",
+        "displayName": "Printing Ink",
+        "tonalRamp": [
+          "oklch(15% 0.033 291.7)",
+          "oklch(26% 0.033 291.7)",
+          "oklch(37% 0.033 291.7)",
+          "oklch(48% 0.033 291.7)",
+          "oklch(59% 0.033 291.7)",
+          "oklch(70% 0.033 291.7)",
+          "oklch(82% 0.033 291.7)",
+          "oklch(95% 0.033 291.7)"
+        ]
+      },
+      "printing-ink-muted": {
+        "role": "neutral",
+        "displayName": "Printing Ink, muted",
+        "tonalRamp": [
+          "oklch(15% 0.043 291.4)",
+          "oklch(26% 0.043 291.4)",
+          "oklch(37% 0.043 291.4)",
+          "oklch(48% 0.043 291.4)",
+          "oklch(59% 0.043 291.4)",
+          "oklch(70% 0.043 291.4)",
+          "oklch(82% 0.043 291.4)",
+          "oklch(95% 0.043 291.4)"
+        ]
+      },
+      "printing-ink-faint": {
+        "role": "neutral",
+        "displayName": "Printing Ink, faint",
+        "tonalRamp": [
+          "oklch(15% 0.041 292.0)",
+          "oklch(26% 0.041 292.0)",
+          "oklch(37% 0.041 292.0)",
+          "oklch(48% 0.041 292.0)",
+          "oklch(59% 0.041 292.0)",
+          "oklch(70% 0.041 292.0)",
+          "oklch(82% 0.041 292.0)",
+          "oklch(95% 0.041 292.0)"
+        ]
+      },
+      "focus-on-leaf": {
+        "role": "neutral",
+        "displayName": "Focus Ring on Leaf",
+        "tonalRamp": [
+          "oklch(15% 0.106 292.9)",
+          "oklch(26% 0.106 292.9)",
+          "oklch(37% 0.106 292.9)",
+          "oklch(48% 0.106 292.9)",
+          "oklch(59% 0.106 292.9)",
+          "oklch(70% 0.106 292.9)",
+          "oklch(82% 0.106 292.9)",
+          "oklch(95% 0.106 292.9)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page titles on the leaf: archive month, album, game."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "A picture's title on the stamp's inscription band."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Panel headings: date setter, catalogue entry."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Denomination, postmark date and game year readout on rolling wheels."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Astronomers' explanations in the catalogue entry."
+      },
+      "label": {
+        "displayName": "Engraved caps",
+        "purpose": "Every control, inscription and fact label."
+      }
+    },
+    "shadows": [
+      {
+        "name": "stamp-lift",
+        "value": "0 1px 2px rgb(0 0 0 / 0.45), 0 14px 36px -14px rgb(0 0 0 / 0.75)",
+        "purpose": "Every stamp lifting off the leaf."
+      },
+      {
+        "name": "sheet-lift",
+        "value": "0 1px 2px rgb(0 0 0 / 0.4), 0 30px 60px -30px rgb(0 0 0 / 0.9)",
+        "purpose": "Archive sheets and the album page."
+      },
+      {
+        "name": "panel-lift",
+        "value": "0 2px 4px rgb(0 0 0 / 0.35), 0 28px 60px -18px rgb(0 0 0 / 0.85)",
+        "purpose": "The date setter over the stamp."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The postmark strike, rolling date wheels and panel entrances."
+      },
+      {
+        "name": "strike",
+        "value": "520ms ease-out; scale 1.16 to 1, blur 1.4px to 0",
+        "purpose": "The one authored arrival motion when a day loads."
+      },
+      {
+        "name": "wheel-roll",
+        "value": "760ms ease-out, 45ms stagger per digit",
+        "purpose": "Date wheels rolling in fixed cells."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "720px"
+      },
+      {
+        "name": "narrow-desktop",
+        "value": "1060px"
+      },
+      {
+        "name": "sheet-4col",
+        "value": "860px"
+      },
+      {
+        "name": "sheet-3col",
+        "value": "560px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button on leaf",
+      "kind": "button",
+      "refersTo": "button-on-leaf",
+      "description": "Primary action on the stockbook leaf: stamp paper with printing-ink engraved caps.",
+      "html": "<div class=\"ds-leaf\"><button class=\"ds-btn-leaf\">Start a round of five</button></div>",
+      "css": ".ds-leaf { background: #0b0d12; padding: 24px; } .ds-btn-leaf { font-family: 'Archivo Variable', Archivo, 'Helvetica Neue', Arial, sans-serif; font-stretch: 112%; font-weight: 600; font-size: 11.5px; letter-spacing: 0.09em; text-transform: uppercase; min-height: 50px; padding: 0 20px; background: #f1f0ec; color: #1d1a2b; border: 0; border-radius: 2px; cursor: pointer; transition: background-color 160ms ease, transform 200ms cubic-bezier(0.16,1,0.3,1); } .ds-btn-leaf:hover { background: #fff; } .ds-btn-leaf:active { transform: translateY(1px); } .ds-btn-leaf:focus-visible { outline: 2px solid #b9aaf5; outline-offset: 3px; }"
+    },
+    {
+      "name": "Button on paper",
+      "kind": "button",
+      "refersTo": "button-on-paper",
+      "description": "Primary action on stamp paper: printing ink that turns cancellation violet on hover.",
+      "html": "<div class=\"ds-paper\"><button class=\"ds-btn-paper\">Postmark this date</button></div>",
+      "css": ".ds-paper { background: #f1f0ec; padding: 24px; } .ds-btn-paper { font-family: 'Archivo Variable', Archivo, 'Helvetica Neue', Arial, sans-serif; font-stretch: 112%; font-weight: 600; font-size: 11.5px; letter-spacing: 0.09em; text-transform: uppercase; font-size: 12px; min-height: 46px; padding: 0 16px; background: #1d1a2b; color: #f1f0ec; border: 0; border-radius: 2px; cursor: pointer; transition: background-color 160ms ease; } .ds-btn-paper:hover { background: #3d2a7a; } .ds-btn-paper:focus-visible { outline: 2px solid #3d2a7a; outline-offset: 3px; }"
+    },
+    {
+      "name": "Tool tab",
+      "kind": "button",
+      "refersTo": "tool-tab",
+      "description": "Labelled viewer tool on the leaf; pressed tools carry a registered-red underline.",
+      "html": "<div class=\"ds-leaf\"><button class=\"ds-tool\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 2v4\"/><path d=\"M16 2v4\"/><rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\"/><path d=\"M3 10h18\"/></svg><span>Set date</span></button><button class=\"ds-tool\" aria-pressed=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.34-4.34\"/></svg><span>Loupe</span></button></div>",
+      "css": ".ds-leaf { background: #0b0d12; padding: 24px; display: flex; gap: 2px; } .ds-tool { font-family: 'Archivo Variable', Archivo, 'Helvetica Neue', Arial, sans-serif; font-stretch: 112%; font-weight: 600; font-size: 11.5px; letter-spacing: 0.09em; text-transform: uppercase; font-size: 11px; font-stretch: 108%; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 10px; color: #aeadb8; background: transparent; border: 0; border-radius: 2px; cursor: pointer; transition: background-color 160ms ease, color 160ms ease; } .ds-tool:hover { background: #12151d; color: #e9e7e1; } .ds-tool[aria-pressed='true'] { color: #e9e7e1; box-shadow: inset 0 -2px 0 #c4323f; } .ds-tool:focus-visible { outline: 2px solid #b9aaf5; outline-offset: 3px; }"
+    },
+    {
+      "name": "Date slug",
+      "kind": "input",
+      "refersTo": "date-slug",
+      "description": "A canceller's date slug: a native select drawn as flat printing ink with paper numerals.",
+      "html": "<div class=\"ds-paper\"><label class=\"ds-slug-label\" for=\"ds-y\">Year</label><select id=\"ds-y\" class=\"ds-slug\"><option>1995</option><option selected>2026</option></select></div>",
+      "css": ".ds-paper { background: #f1f0ec; padding: 24px; display: grid; gap: 6px; width: 160px; } .ds-slug-label { font-family: 'Archivo Variable', Archivo, 'Helvetica Neue', Arial, sans-serif; font-stretch: 112%; font-weight: 600; font-size: 11.5px; letter-spacing: 0.09em; text-transform: uppercase; font-size: 11px; color: #6a6680; } .ds-slug { appearance: none; height: 54px; text-align: center; text-align-last: center; font-family: 'Archivo Variable', Archivo, sans-serif; font-stretch: 85%; font-weight: 760; font-size: 26px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; color: #f1f0ec; background: #1d1a2b; border: 0; border-radius: 2px; cursor: pointer; transition: background-color 160ms ease; } .ds-slug:hover { background: #3d2a7a; } .ds-slug:focus-visible { outline: 2px solid #3d2a7a; outline-offset: 2px; }"
+    },
+    {
+      "name": "Section navigation",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Top-bar section links in engraved caps; the current page takes a registered-red underline.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Today</a><a href=\"#\">Archive</a><a href=\"#\">Album</a><a href=\"#\">Game</a></nav>",
+      "css": ".ds-nav { background: #0b0d12; padding: 16px; display: flex; gap: 4px; } .ds-nav a { font-family: 'Archivo Variable', Archivo, 'Helvetica Neue', Arial, sans-serif; font-stretch: 112%; font-weight: 600; font-size: 11.5px; letter-spacing: 0.09em; text-transform: uppercase; font-size: 11.5px; letter-spacing: 0.1em; position: relative; display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; color: #aeadb8; text-decoration: none; border-radius: 2px; transition: color 160ms ease, background-color 160ms ease; } .ds-nav a:hover { color: #e9e7e1; background: #12151d; } .ds-nav a[aria-current='page'] { color: #e9e7e1; } .ds-nav a[aria-current='page']::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 3px; height: 2px; background: #c4323f; } .ds-nav a:focus-visible { outline: 2px solid #b9aaf5; outline-offset: 3px; }"
+    },
+    {
+      "name": "Stamp",
+      "kind": "custom",
+      "refersTo": "stamp",
+      "description": "Signature frame: perforated stamp paper around a picture window, with a day numeral and caption.",
+      "html": "<div class=\"ds-leaf\"><a class=\"ds-stamp\" href=\"#\"><span class=\"ds-stamp-window\"></span><span class=\"ds-stamp-band\"><b>22</b><span>The First Green Star, WD J1330+6435</span></span></a></div>",
+      "css": ".ds-leaf { background: #0b0d12; padding: 28px; } .ds-stamp { --r: 4.5px; --p: 14px; position: relative; isolation: isolate; display: grid; gap: 6px; width: 180px; padding: calc(var(--r) + 8px); color: #1d1a2b; text-decoration: none; } .ds-stamp::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #f1f0ec; -webkit-mask: radial-gradient(circle at 50% 50%, #0000 var(--r), #000 calc(var(--r) + 0.6px)) calc(var(--p) / -2) calc(var(--p) / -2) / var(--p) var(--p) round, linear-gradient(#000 0 0) 50% 50% / calc(100% - 2 * var(--r)) calc(100% - 2 * var(--r)) no-repeat; mask: radial-gradient(circle at 50% 50%, #0000 var(--r), #000 calc(var(--r) + 0.6px)) calc(var(--p) / -2) calc(var(--p) / -2) / var(--p) var(--p) round, linear-gradient(#000 0 0) 50% 50% / calc(100% - 2 * var(--r)) calc(100% - 2 * var(--r)) no-repeat; } .ds-stamp::after { content: ''; position: absolute; inset: var(--r); z-index: -2; box-shadow: 0 1px 2px rgb(0 0 0 / 0.45), 0 14px 36px -14px rgb(0 0 0 / 0.75); } .ds-stamp-window { aspect-ratio: 4 / 3.6; background: radial-gradient(circle at 58% 40%, #e6f5d8 0 18%, #6f8f55 34%, #10140f 62%); outline: 1px solid rgb(29 26 43 / 0.25); outline-offset: -1px; } .ds-stamp-band { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: baseline; font-family: 'Archivo Variable', Archivo, sans-serif; } .ds-stamp-band b { font-stretch: 80%; font-weight: 760; font-size: 19px; } .ds-stamp-band span { font-size: 11.5px; line-height: 1.3; font-weight: 500; color: #4b4761; } .ds-stamp:focus-visible { outline: 2px solid #b9aaf5; outline-offset: 2px; }"
+    },
+    {
+      "name": "Postmark",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature date stamp in cancellation ink: two rings, ring text, and the issue date; it doubles as the date control.",
+      "html": "<div class=\"ds-paper\"><button class=\"ds-postmark\" aria-label=\"Postmarked 22 October 2026. Choose another date\"><svg viewBox=\"0 0 200 200\" aria-hidden=\"true\"><defs><path id=\"ds-pm-top\" d=\"M 26 100 A 74 74 0 0 1 174 100\"/><path id=\"ds-pm-bottom\" d=\"M 22 100 A 78 78 0 0 0 178 100\"/></defs><circle cx=\"100\" cy=\"100\" r=\"95\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.4\"/><circle cx=\"100\" cy=\"100\" r=\"58\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><text text-anchor=\"middle\" class=\"ds-ring\"><textPath href=\"#ds-pm-top\" startOffset=\"50%\">TODAY’S ISSUE</textPath></text><text text-anchor=\"middle\" dominant-baseline=\"hanging\" class=\"ds-ring\"><textPath href=\"#ds-pm-bottom\" startOffset=\"50%\">SINCE 1995</textPath></text><text x=\"100\" y=\"98\" text-anchor=\"middle\" class=\"ds-day\">22 OCT</text><text x=\"100\" y=\"124\" text-anchor=\"middle\" class=\"ds-year\">2026</text></svg></button></div>",
+      "css": ".ds-paper { background: #f1f0ec; padding: 24px; } .ds-postmark { width: 148px; height: 148px; padding: 0; border: 0; background: none; color: #3d2a7a; mix-blend-mode: multiply; opacity: 0.9; border-radius: 50%; rotate: -6deg; cursor: pointer; transition: rotate 260ms cubic-bezier(0.16,1,0.3,1), opacity 200ms ease; } .ds-postmark:hover { rotate: -3deg; opacity: 1; } .ds-postmark:focus-visible { outline: 2px dashed #3d2a7a; outline-offset: 4px; } .ds-postmark svg { width: 100%; height: 100%; overflow: visible; } .ds-ring { font-family: 'Archivo Variable', Archivo, sans-serif; font-stretch: 88%; font-weight: 700; font-size: 16px; letter-spacing: 0.16em; fill: currentColor; } .ds-day { font-family: 'Archivo Variable', Archivo, sans-serif; font-stretch: 85%; font-weight: 760; font-size: 30px; fill: currentColor; } .ds-year { font-family: 'Archivo Variable', Archivo, sans-serif; font-stretch: 85%; font-weight: 720; font-size: 24px; letter-spacing: 0.08em; fill: currentColor; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Daily Issue",
+    "overview": "Every day of the APOD archive is a stamp issued on its date, and the whole site is the collection that holds them. The picture is always the face of a stamp. It sits on white stamp paper with real perforation teeth, it's lettered in small engraved capitals, and it's struck with a circular postmark in cancellation ink. Around the stamps is the matte blue-black leaf of a stockbook, where the tools live as labelled tabs.\n\nThe picture leads and everything else stays small and exact. Lettering is either engraved caps (labels, inscriptions, tabs) or a compact grotesk headline, and long reading moves to a book serif. Colour belongs to the photographs. The interface keeps to paper, leaf and two inks. Motion is one gesture, the postmark striking when a day arrives, with the date wheels rolling digit by digit inside fixed cells.",
+    "keyCharacteristics": [
+      "Pictures framed as perforated stamps at every scale, from the full viewport to a calendar sheet of 31.",
+      "Two grounds: the stockbook-black leaf and stamp paper. Text on each uses its own ink family.",
+      "Cancellation violet and registered red are the only inks.",
+      "Engraved caps on every control. Every tool has a written label, never an icon alone.",
+      "One authored motion: the postmark strike plus its rolling date wheels."
+    ],
+    "rules": [
+      {
+        "name": "The Two Grounds Rule",
+        "body": "Text sits either on the leaf, in leaf ink, or on paper, in printing ink. Never set grey text on a photograph. When copy has to sit on a picture, give it a paper tablet.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ink Budget Rule",
+        "body": "Violet and red are the only saturated colours the interface prints. Each marks a state (postmarked, active or saved) and never decorates.",
+        "section": "colors"
+      },
+      {
+        "name": "The Engraved Caps Rule",
+        "body": "Every control is named in engraved caps. An icon may sit beside the label but never replaces it. On phones the dock shortens the label rather than dropping it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Date Rule",
+        "body": "Dates and years always set in tabular lining figures, so a rolling date wheel never changes width.",
+        "section": "typography"
+      },
+      {
+        "name": "The Physical Objects Rule",
+        "body": "Only physical objects cast shadows: stamps, sheets, the album page and paper panels. Interface chrome on the leaf (tabs, the dock, selects) separates by tone (#12151d) and rules (#232836), never by shadow or blur.",
+        "section": "elevation-depth"
+      }
+    ],
+    "dos": [
+      "**Do** frame every APOD picture as a perforated stamp on stamp paper (#f1f0ec), at any scale.",
+      "**Do** name every control in engraved caps (Archivo, 600, 11.5px, 0.09em, width 112).",
+      "**Do** keep the strike as the only arrival motion, and render marks already struck under reduced motion.",
+      "**Do** credit each picture's authors in the inscription band and in full in the catalogue entry.",
+      "**Do** keep the date in tabular figures in fixed cells, so date wheels roll without reflowing."
+    ],
+    "donts": [
+      "**Don't** set text directly on a photograph. Use the inscription band or a paper tablet.",
+      "**Don't** use glows, glass, gradients or starfield particles for \"space\". The photographs are the space.",
+      "**Don't** imitate metal or plastic with CSS bevels. Slugs and rims stay flat ink or flat paper.",
+      "**Don't** wear NASA's logo or branding. Skypost is an unofficial viewer and credits NASA as the source.",
+      "**Don't** put a label or kicker above a heading. Progress and status lines go below the content they describe."
+    ]
+  }
+}
