@@ -9,11 +9,13 @@ const Archive = lazy(() => import("./components/Archive/Archive"));
 const BirthdaySheet = lazy(() => import("./components/Archive/BirthdaySheet"));
 const Album = lazy(() => import("./components/Album/Album"));
 const Game = lazy(() => import("./components/Game/Game"));
+const Live = lazy(() => import("./components/Live/Live"));
 
 const TITLES = {
   archive: "Archive",
   birthday: "Every year on your birthday",
   album: "Your album",
+  live: "Live sky",
   game: "Smudged postmark",
 } as const;
 
@@ -55,6 +57,7 @@ export default function App() {
         {route.view === "birthday" && <BirthdaySheet on={route.on} />}
         {route.view === "album" && <Album />}
         {route.view === "game" && <Game />}
+        {route.view === "live" && <Live tab={route.tab} date={route.date} />}
       </Suspense>
       <Toaster />
     </>

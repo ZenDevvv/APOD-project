@@ -4,8 +4,12 @@ import { isISODate, isYearMonth, type ISODate, type YearMonth } from "./dates";
 // Routes live in the query string so the app works on any static host
 // without rewrite rules, and every date has a shareable link.
 
+export type LiveTab = "earth" | "iss" | "tonight";
+export const LIVE_TABS: LiveTab[] = ["earth", "iss", "tonight"];
+
 export type Route =
   | { view: "day"; date?: ISODate; birthday?: boolean }
+  | { view: "live"; tab?: LiveTab; date?: ISODate }
   | { view: "archive"; month?: YearMonth }
   | { view: "birthday"; on?: string }
   | { view: "album" }
@@ -30,6 +34,15 @@ export function parseRoute(search: string): Route {
     const on = q.get("on");
     return { view: "birthday", on: isMonthDay(on) ? on : undefined };
   }
+  if (view === "live") {
+    const tab = q.get("tab");
+    const d = q.get("d");
+    return {
+      view: "live",
+      tab: LIVE_TABS.includes(tab as LiveTab) ? (tab as LiveTab) : undefined,
+      date: isISODate(d) ? d : undefined,
+    };
+  }
   if (view === "album") return { view: "album" };
   if (view === "game") return { view: "game" };
   const d = q.get("d");
@@ -50,6 +63,11 @@ export function hrefFor(route: Route): string {
     case "birthday":
       q.set("view", "birthday");
       if (route.on) q.set("on", route.on);
+      break;
+    case "live":
+      q.set("view", "live");
+      if (route.tab) q.set("tab", route.tab);
+      if (route.date) q.set("d", route.date);
       break;
     default:
       q.set("view", route.view);

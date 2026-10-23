@@ -1,0 +1,376 @@
+/* An airmail route chart and the dispatch slip that goes with it. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  align-items: start;
+  gap: clamp(16px, 2vw, 26px);
+}
+
+.chartWrap {
+  display: grid;
+  gap: 10px;
+  padding: clamp(10px, 1.4vw, 18px);
+  background: var(--paper);
+  border-radius: 1px;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 30px 60px -30px rgb(0 0 0 / 0.9);
+}
+
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  border: 1px solid var(--paper-line);
+}
+
+.chartWaiting {
+  display: grid;
+  place-items: center;
+  color: var(--ink-3);
+  background: var(--paper-shade);
+}
+
+.ocean {
+  fill: var(--paper);
+}
+
+.graticule {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 0.5;
+  opacity: 0.12;
+}
+
+.equator {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 0.8;
+  opacity: 0.22;
+}
+
+.land {
+  fill: #dedad0;
+  stroke: var(--ink-3);
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+}
+
+.night {
+  fill: var(--ink);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.footprint {
+  fill: var(--cancel-soft);
+  fill-opacity: 0.08;
+  stroke: var(--cancel-soft);
+  stroke-width: 1.2;
+}
+
+.past {
+  fill: none;
+  stroke: var(--ink-2);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 0.1 6;
+}
+
+.track {
+  filter: url(#skypost-ink);
+}
+
+.trackMain,
+.trackFine {
+  fill: none;
+  stroke: var(--cancel);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trackMain {
+  stroke-width: 2.2;
+}
+
+.trackFine {
+  stroke-width: 1;
+  opacity: 0.55;
+}
+
+.youRing {
+  fill: var(--paper);
+}
+
+.youDot {
+  fill: var(--registered);
+}
+
+.youLabel {
+  font-family: var(--font-face);
+  font-weight: 700;
+  font-size: 13px;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.postmark {
+  filter: url(#skypost-ink);
+}
+
+.pmOuter {
+  fill: rgb(241 240 236 / 0.82);
+  stroke: var(--cancel);
+  stroke-width: 2.6;
+}
+
+.pmInner {
+  fill: none;
+  stroke: var(--cancel);
+  stroke-width: 1.1;
+}
+
+.pmName,
+.pmTime {
+  font-family: var(--font-face);
+  font-stretch: 85%;
+  text-anchor: middle;
+  fill: var(--cancel);
+}
+
+.pmName {
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.pmTime {
+  font-weight: 700;
+  font-size: 9.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.stationDot {
+  fill: var(--registered);
+  stroke: var(--paper);
+  stroke-width: 1.5;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.legend span {
+  display: inline-block;
+  width: 22px;
+  height: 10px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.legend span:first-child {
+  margin-left: 0;
+}
+
+.keyTrack {
+  border-top: 2px solid var(--cancel);
+  border-bottom: 1px solid var(--cancel-soft);
+  height: 7px !important;
+}
+
+.keyPast {
+  background: radial-gradient(circle, var(--ink-2) 1.2px, transparent 1.6px) 0 50% / 6px 6px repeat-x;
+}
+
+.keyFoot {
+  border: 1.2px solid var(--cancel-soft);
+  border-radius: 50%;
+  background: rgb(108 91 179 / 0.08);
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.keyNight {
+  background: rgb(29 26 43 / 0.16);
+  border: 1px solid var(--paper-line);
+}
+
+/* ---- the dispatch slip ------------------------------------------------------------ */
+
+.slip {
+  display: grid;
+  gap: 16px;
+  padding: 18px 20px 20px;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 1px;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 30px 60px -30px rgb(0 0 0 / 0.9);
+}
+
+.slip :focus-visible {
+  outline-color: var(--focus-paper);
+}
+
+.title {
+  font-stretch: 92%;
+  font-weight: 740;
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.telemetry {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+  padding: 14px 0;
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.telemetry > div {
+  display: grid;
+  gap: 2px;
+}
+
+.telemetry dt {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.telemetry dd {
+  display: grid;
+  font-size: 17px;
+  font-weight: 620;
+  line-height: 1.3;
+}
+
+.over {
+  grid-column: 1 / -1;
+}
+
+.over dd {
+  font-size: 21px;
+  font-weight: 720;
+}
+
+.light {
+  grid-column: 1 / -1;
+}
+
+.sub {
+  font-size: 13.5px;
+  font-weight: 450;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.passes {
+  display: grid;
+  gap: 12px;
+}
+
+.passTitle {
+  font-stretch: 100%;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.lead {
+  text-wrap: pretty;
+  font-family: var(--font-text);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.passList {
+  list-style: none;
+  display: grid;
+}
+
+.pass {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 3px 10px;
+  padding: 9px 0;
+  border-top: 1px solid var(--paper-line);
+}
+
+.passWhen {
+  font-size: 15px;
+}
+
+.passWhen strong {
+  font-weight: 760;
+}
+
+.passHow {
+  grid-column: 1 / -1;
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+
+.badge {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.visible .badge {
+  padding: 3px 7px;
+  color: var(--paper);
+  background: var(--cancel);
+  border-radius: 2px;
+}
+
+.source {
+  text-wrap: pretty;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+.notice {
+  display: grid;
+  gap: 10px;
+  padding: 40px 0;
+  color: var(--leaf-ink-2);
+  font-family: var(--font-text);
+  font-size: 17px;
+}
+
+.notice h1 {
+  font-family: var(--font-face);
+  font-weight: 720;
+  font-size: 30px;
+  color: var(--leaf-ink);
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .chartWrap {
+    padding: 8px;
+  }
+
+  .legend {
+    font-size: 12px;
+  }
+
+}

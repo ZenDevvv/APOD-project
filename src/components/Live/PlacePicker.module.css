@@ -1,0 +1,248 @@
+.picker {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
+.reason {
+  font-family: var(--font-text);
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 52ch;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.locate {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 2px;
+}
+
+.or {
+  font-size: 14px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 220px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 2px;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  outline: none;
+}
+
+.search input::placeholder {
+  opacity: 1;
+}
+
+.results {
+  list-style: none;
+  display: grid;
+  width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.results button {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.results span {
+  font-size: 13.5px;
+}
+
+.note {
+  font-size: 13px;
+}
+
+.error {
+  font-size: 14.5px;
+  padding: 8px 12px;
+  border-radius: 2px;
+}
+
+.cancel {
+  padding: 6px 0;
+  border-bottom: 1.5px solid currentColor;
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  font-size: 15px;
+}
+
+.summary button {
+  padding: 4px 0;
+  border-bottom: 1.5px solid currentColor;
+}
+
+.coords {
+  font-variant-numeric: tabular-nums;
+}
+
+/* on the album leaf */
+.leaf .reason,
+.leaf .or,
+.leaf .note {
+  color: var(--leaf-ink-2);
+}
+
+.leaf .locate {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.leaf .locate:hover:not(:disabled) {
+  background: #fff;
+}
+
+.leaf .search {
+  background: var(--leaf-raised);
+  border: 1px solid var(--leaf-line);
+  color: var(--leaf-ink-2);
+}
+
+.leaf .search input {
+  color: var(--leaf-ink);
+}
+
+.leaf .search input::placeholder {
+  color: var(--leaf-ink-3);
+}
+
+.leaf .search:focus-within {
+  border-color: var(--focus-leaf);
+}
+
+.leaf .results {
+  border: 1px solid var(--leaf-line);
+  background: var(--leaf-raised);
+}
+
+.leaf .results button {
+  color: var(--leaf-ink);
+}
+
+.leaf .results button:hover {
+  background: var(--leaf-line);
+}
+
+.leaf .results span {
+  color: var(--leaf-ink-2);
+}
+
+.leaf .error {
+  border: 1px solid var(--registered);
+  color: var(--leaf-ink);
+}
+
+.leaf .cancel,
+.leaf .summary button {
+  color: var(--leaf-ink-2);
+}
+
+.leaf .summary {
+  color: var(--leaf-ink-2);
+}
+
+.leaf .summary strong {
+  color: var(--leaf-ink);
+}
+
+/* on stamp paper */
+.paper .reason,
+.paper .or,
+.paper .note {
+  color: var(--ink-2);
+}
+
+.paper .locate {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.paper .locate:hover:not(:disabled) {
+  background: var(--cancel);
+}
+
+.paper .search {
+  border: 1px solid var(--ink-3);
+  color: var(--ink-2);
+}
+
+.paper .search input {
+  color: var(--ink);
+}
+
+.paper .search input::placeholder {
+  color: var(--ink-3);
+}
+
+.paper .search:focus-within {
+  border-color: var(--cancel);
+}
+
+.paper .results {
+  border: 1px solid var(--paper-line);
+}
+
+.paper .results button:hover {
+  background: var(--paper-shade);
+}
+
+.paper .results span {
+  color: var(--ink-2);
+}
+
+.paper .error {
+  border: 1px solid var(--registered);
+}
+
+.paper .cancel,
+.paper .summary button {
+  color: var(--cancel);
+}
+
+.paper .summary {
+  color: var(--ink-2);
+}
+
+.paper :focus-visible {
+  outline-color: var(--focus-paper);
+}
+
+.locate:disabled {
+  opacity: 0.6;
+}

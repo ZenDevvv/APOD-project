@@ -21,6 +21,15 @@ date you like.
 - **Album**: keep the stamps you love. They're stored in your browser.
 - **Smudged postmark**: a five-round game where you guess the year each picture was published.
 - **Share**: every day has its own link (`?d=YYYY-MM-DD`).
+- **Live sky**, three tabs with their own layouts:
+  - **Earth**: the whole sunlit planet photographed by NASA's EPIC camera from 1.5 million km away. It's set as
+    a round stamp on a souvenir sheet. Play or drag through the day's photos, pick any day since June 2015, or
+    jump to your birthday.
+  - **ISS**: the station's live position on an airmail-style route chart, with night side, visibility ring and
+    next orbit, plus pass times over your location and whether each pass is visible. Computed in the browser
+    from published orbit data.
+  - **Tonight**: one sentence on your night sky, an hour-by-hour cloud strip from sunset to sunrise, an aurora
+    estimate from the Kp index and your geomagnetic latitude, and a live countdown to the next rocket launch.
 
 Keyboard: `←` `→` travel, `T` today, `D` date, `B` birthday, `R` random, `I` catalogue, `L` loupe,
 `W` whole picture, `S` album, `F` fullscreen, `Esc` close.
@@ -43,6 +52,18 @@ API key** and allows cross-origin requests:
 Some older records carry a placeholder `hdurl`; Skypost recovers their pictures from the record's `basic_html`, and
 video days from its embedded player. Responses are cached in memory and `localStorage`. `src/lib/apod.ts` has the
 details.
+
+The Live section uses other free, keyless, browser-friendly sources, each cached to stay within its limits:
+
+| Source | Used for |
+| --- | --- |
+| [NASA EPIC](https://epic.gsfc.nasa.gov/about/api) | Whole-Earth photos (`src/lib/epic.ts`) |
+| [CelesTrak](https://celestrak.org/), with [wheretheiss.at](https://wheretheiss.at/) as fallback | ISS orbital elements; positions and passes are computed with [satellite.js](https://github.com/shashwatak/satellite-js) (`src/lib/iss.ts`) |
+| [Open-Meteo](https://open-meteo.com/) | Cloud cover, sunrise and sunset, city search (`src/lib/tonight.ts`, `src/lib/place.ts`) |
+| [NOAA SWPC](https://www.swpc.noaa.gov/) | Planetary Kp index, observed and forecast |
+| [Launch Library 2](https://thespacedevs.com/llapi) by The Space Devs | Upcoming launches (free tier: 15 requests an hour, cached for 10 minutes) |
+
+Location is only requested when you press "Use my location" (or search for a city), and it stays in your browser.
 
 The `VITE_API_KEY` variable is no longer used.
 

@@ -18,8 +18,13 @@ interface DateSetterProps {
   latest: ISODate;
   birthday: ISODate | null;
   onSubmit: (date: ISODate, rememberBirthday: boolean) => void;
-  onRandom: () => void;
+  onRandom?: () => void;
   onClose: () => void;
+  /** Earliest pickable date; APOD's first issue by default. */
+  min?: ISODate;
+  title?: string;
+  lede?: string;
+  submitLabel?: string;
 }
 
 function Wheel({
@@ -66,20 +71,32 @@ function Wheel({
 }
 
 /** The canceller: three date slugs you set before striking a new postmark. */
-export default function DateSetter({ mode, initial, latest, birthday, onSubmit, onRandom, onClose }: DateSetterProps) {
-  const start = mode === "birthday" && birthday ? clampDate(birthday, FIRST_ISSUE, latest) : initial;
+export default function DateSetter({
+  mode,
+  initial,
+  latest,
+  birthday,
+  onSubmit,
+  onRandom,
+  onClose,
+  min: minDate = FIRST_ISSUE,
+  title,
+  lede,
+  submitLabel,
+}: DateSetterProps) {
+  const start = mode === "birthday" && birthday ? clampDate(birthday, minDate, latest) : clampDate(initial, minDate, latest);
   const [date, setDate] = useState(start);
   const [remember, setRemember] = useState(mode === "birthday");
   const panelRef = useRef<HTMLFormElement>(null);
   const headingId = useId();
 
   const { y, m, d } = parts(date);
-  const min = parts(FIRST_ISSUE);
+  const min = parts(minDate);
   const max = parts(latest);
 
   const set = (ny: number, nm: number, nd: number) => {
     const day = Math.min(nd, daysInMonth(ny, nm));
-    setDate(clampDate(fromParts(ny, nm, day), FIRST_ISSUE, latest));
+    setDate(clampDate(fromParts(ny, nm, day), minDate, latest));
   };
 
   useEffect(() => {
@@ -100,7 +117,7 @@ export default function DateSetter({ mode, initial, latest, birthday, onSubmit, 
   const days = Array.from({ length: daysInMonth(y, m) }, (_, i) => ({
     value: i + 1,
     label: String(i + 1).padStart(2, "0"),
-    disabled: fromParts(y, m, i + 1) < FIRST_ISSUE || fromParts(y, m, i + 1) > latest,
+    disabled: fromParts(y, m, i + 1) < minDate || fromParts(y, m, i + 1) > latest,
   }));
 
   const submit = (event: FormEvent) => {
@@ -114,16 +131,17 @@ export default function DateSetter({ mode, initial, latest, birthday, onSubmit, 
     <form ref={panelRef} className={styles.panel} onSubmit={submit} role="dialog" aria-labelledby={headingId}>
       <div className={styles.head}>
         <h2 id={headingId} className={styles.title}>
-          {isBirthday ? "The picture from your birthday" : "Re-set the postmark"}
+          {title ?? (isBirthday ? "The picture from your birthday" : "Re-set the postmark")}
         </h2>
         <button type="button" className={styles.close} onClick={onClose} aria-label="Close">
           <X size={18} aria-hidden="true" />
         </button>
       </div>
       <p className={styles.lede}>
-        {isBirthday
-          ? "Pick your birthday and see the astronomy picture published that day. Born before June 1995? Pick any birthday since."
-          : `Any day from 16 June 1995 to ${formatLong(latest).replace(/^\w+, /, "")}.`}
+        {lede ??
+          (isBirthday
+            ? "Pick your birthday and see the astronomy picture published that day. Born before June 1995? Pick any birthday since."
+            : `Any day from 16 June 1995 to ${formatLong(latest).replace(/^\w+, /, "")}.`)}
       </p>
 
       <div className={styles.slugs}>
@@ -143,11 +161,13 @@ export default function DateSetter({ mode, initial, latest, birthday, onSubmit, 
 
       <div className={styles.actions}>
         <button type="submit" className={`caps ${styles.primary}`}>
-          {isBirthday ? "Show my birthday picture" : "Postmark this date"}
+          {submitLabel ?? (isBirthday ? "Show my birthday picture" : "Postmark this date")}
         </button>
-        <button type="button" className={`caps ${styles.secondary}`} onClick={onRandom}>
-          <Shuffle size={14} aria-hidden="true" /> Random day
-        </button>
+        {onRandom && (
+          <button type="button" className={`caps ${styles.secondary}`} onClick={onRandom}>
+            <Shuffle size={14} aria-hidden="true" /> Random day
+          </button>
+        )}
       </div>
     </form>
   );

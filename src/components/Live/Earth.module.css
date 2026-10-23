@@ -1,0 +1,456 @@
+/* A souvenir sheet: one large round stamp printed on a paper sheet, with its selvage. */
+.sheet {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  padding: clamp(18px, 2.4vw, 30px) clamp(18px, 3vw, 40px) clamp(18px, 2.4vw, 28px);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 1px;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.4),
+    0 30px 60px -30px rgb(0 0 0 / 0.9);
+}
+
+.sheet :focus-visible {
+  outline-color: var(--focus-paper);
+}
+
+.head {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-bottom: 14px;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.title {
+  font-stretch: 92%;
+  font-weight: 740;
+  font-size: clamp(24px, 1.2rem + 1.2vw, 38px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.titleDate {
+  white-space: nowrap;
+}
+
+.dayNav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.step {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ink-3);
+  border-radius: 2px;
+  color: var(--ink);
+}
+
+.step:hover:not(:disabled),
+.pickDate:hover:not(:disabled) {
+  background: var(--paper-shade);
+}
+
+.step:disabled {
+  opacity: 0.3;
+}
+
+.pickDate {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--ink-3);
+  border-radius: 2px;
+  color: var(--ink);
+}
+
+.popover {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 20;
+}
+
+.snapped {
+  margin-top: -6px;
+  font-size: 14.5px;
+  color: var(--ink-2);
+}
+
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  align-items: center;
+  gap: clamp(20px, 4vw, 56px);
+}
+
+/* ---- the round stamp ---------------------------------------------------------- */
+
+.stamp {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 62svh, 560px);
+  aspect-ratio: 1;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.stamp:active {
+  cursor: grabbing;
+}
+
+.rim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.paperDisc {
+  fill: var(--paper);
+}
+
+/* perforations punched through the sheet show the album leaf behind it */
+.hole {
+  fill: var(--leaf);
+}
+
+.frameLine {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 0.5;
+  opacity: 0.35;
+}
+
+.ringText {
+  font-family: var(--font-face);
+  font-stretch: 112%;
+  font-weight: 620;
+  font-size: 7.8px;
+  letter-spacing: 0.06em;
+  fill: var(--ink-2);
+}
+
+.globe {
+  position: absolute;
+  inset: 18%;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #05060a;
+}
+
+/* EPIC frames show the planet at about 80% of the frame; enlarge it to fill the window */
+.globe img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.22);
+}
+
+.waiting {
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--paper-shade) 0 61%, transparent 61.5%);
+  cursor: default;
+}
+
+.waitingText {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--ink-3);
+  animation: breathe 1.4s var(--ease-in-out) infinite alternate;
+}
+
+@keyframes breathe {
+  from {
+    opacity: 0.45;
+  }
+}
+
+/* ---- facts beside the stamp ---------------------------------------------------- */
+
+.facts {
+  display: grid;
+  align-content: center;
+  gap: 6px;
+}
+
+.time {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-stretch: 78%;
+  font-weight: 800;
+  font-size: clamp(48px, 2rem + 2.4vw, 76px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.zone {
+  font-stretch: 100%;
+  font-weight: 650;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+}
+
+.local {
+  font-size: 15px;
+  color: var(--ink-2);
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--paper-line);
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.list > div {
+  display: grid;
+  gap: 2px;
+}
+
+.list dt {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.list dd {
+  display: grid;
+  gap: 1px;
+  font-size: 16px;
+  font-weight: 560;
+  line-height: 1.35;
+}
+
+.sub {
+  font-size: 13.5px;
+  font-weight: 450;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.full {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+  padding: 6px 0;
+  color: var(--cancel);
+  text-decoration: none;
+  border-bottom: 1.5px solid currentColor;
+}
+
+.credit {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+/* ---- the day's frames ------------------------------------------------------------ */
+
+.strip li {
+  flex: none;
+}
+
+.strip {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scrollbar-color: var(--paper-line) transparent;
+}
+
+.frameButton {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 4px 4px 2px;
+  border-radius: 2px;
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.frameButton img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #05060a;
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px transparent;
+  transition: box-shadow 160ms ease, transform 200ms var(--ease-out);
+}
+
+.frameButton:hover img {
+  transform: scale(1.06);
+}
+
+.frameButton[aria-pressed="true"] {
+  color: var(--ink);
+}
+
+.frameButton[aria-pressed="true"] img {
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--registered);
+}
+
+/* ---- actions ------------------------------------------------------------------ */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--paper-line);
+}
+
+.primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 0 18px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 2px;
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--cancel);
+}
+
+.primary:disabled {
+  opacity: 0.4;
+}
+
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 14px;
+  margin-left: auto;
+  border: 1px solid var(--ink-3);
+  border-radius: 2px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--paper-shade);
+}
+
+.hint {
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.years {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  font-size: 14.5px;
+}
+
+.years :global(.caps) {
+  margin-right: 6px;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.years a {
+  padding: 4px 7px;
+  color: var(--ink);
+  text-decoration: none;
+  border-radius: 2px;
+}
+
+.years a:hover {
+  background: var(--paper-shade);
+}
+
+.years a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.notice {
+  display: grid;
+  gap: 10px;
+  padding: 40px 0;
+  color: var(--leaf-ink-2);
+  font-family: var(--font-text);
+  font-size: 17px;
+}
+
+.notice h1 {
+  font-family: var(--font-face);
+  font-weight: 720;
+  font-size: 30px;
+  color: var(--leaf-ink);
+}
+
+@media (max-width: 860px) {
+  .body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stamp {
+    width: min(100%, 440px);
+  }
+
+  .secondary {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .sheet {
+    padding: 14px 12px 16px;
+  }
+
+  .dayNav {
+    width: 100%;
+  }
+
+  .pickDate {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .popover {
+    position: fixed;
+    inset: auto 0 0 0;
+    display: grid;
+    justify-items: center;
+    padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+    background: rgb(5 6 10 / 0.6);
+    top: 0;
+    align-content: end;
+    z-index: 45;
+  }
+
+  .hint {
+    display: none;
+  }
+}

@@ -8,6 +8,7 @@ import styles from "./TopBar.module.css";
 const NAV: { view: View; label: string; route: Route }[] = [
   { view: "day", label: "Today", route: { view: "day" } },
   { view: "archive", label: "Archive", route: { view: "archive" } },
+  { view: "live", label: "Live", route: { view: "live" } },
   { view: "album", label: "Album", route: { view: "album" } },
   { view: "game", label: "Game", route: { view: "game" } },
 ];
