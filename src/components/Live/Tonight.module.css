@@ -109,6 +109,11 @@
   --perf-paper: #fff;
 }
 
+/* hours already gone stay on the strip, quieter */
+.past {
+  opacity: 0.42;
+}
+
 .hourTop {
   display: flex;
   align-items: baseline;

@@ -105,14 +105,15 @@ export async function getNight(lat: number, lon: number, now = Date.now()): Prom
 export const CLEAR = 30;
 export const CLOUDY = 70;
 
-/** A short plain-language reading of the night's cloud. */
-export function skyVerdict(night: Night, formatHour: (ms: number) => string) {
-  const hours = night.hours;
+/** A short plain-language reading of the night's cloud; once the night is under way, of what's left of it. */
+export function skyVerdict(night: Night, formatHour: (ms: number) => string, now = Date.now()) {
+  const hours = night.underway ? night.hours.filter((h) => h.time + 3600_000 > now) : night.hours;
+  const rest = night.underway ? "for the rest of the night" : "all night";
   if (!hours.length) return "no cloud forecast for this night";
   const clear = hours.filter((h) => h.cloud <= CLEAR).length;
-  if (clear === hours.length) return "clear all night";
-  if (clear / hours.length >= 0.75) return "mostly clear all night";
-  if (clear === 0) return hours.every((h) => h.cloud >= CLOUDY) ? "cloudy all night" : "patchy cloud all night";
+  if (clear === hours.length) return `clear ${rest}`;
+  if (clear / hours.length >= 0.75) return `mostly clear ${rest}`;
+  if (clear === 0) return hours.every((h) => h.cloud >= CLOUDY) ? `cloudy ${rest}` : `patchy cloud ${rest}`;
 
   // the longest clear run
   let best = { from: 0, len: 0 };
@@ -127,7 +128,7 @@ export function skyVerdict(night: Night, formatHour: (ms: number) => string) {
   });
   const from = hours[best.from].time;
   const until = best.from + best.len >= hours.length ? null : hours[best.from + best.len].time;
-  if (best.from === 0) return until ? `clear until ${formatHour(until)}` : "clear all night";
+  if (best.from === 0) return until ? `clear until ${formatHour(until)}` : `clear ${rest}`;
   return until ? `clear from ${formatHour(from)} to ${formatHour(until)}` : `clear from ${formatHour(from)}`;
 }
 

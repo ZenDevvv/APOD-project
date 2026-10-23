@@ -75,9 +75,10 @@ function NightCoil({ night, now }: { night: Night; now: number }) {
       <ol className={styles.hours} aria-label="Cloud cover through the night, hour by hour">
         {night.hours.map((h) => {
           const current = now >= h.time && now < h.time + 3600_000;
+          const past = now >= h.time + 3600_000;
           const clarity = 1 - h.cloud / 100;
           return (
-            <li key={h.time} className={`${styles.hour} ${current ? styles.now : ""}`}>
+            <li key={h.time} className={`${styles.hour} ${current ? styles.now : ""} ${past ? styles.past : ""}`}>
               <Perf size="small" flat className={styles.hourStamp}>
                 <span className={styles.hourTop}>
                   <span className={`num ${styles.hourLabel}`}>{fmt(h.time).slice(0, 2)}</span>
@@ -90,7 +91,7 @@ function NightCoil({ night, now }: { night: Night; now: number }) {
                   </svg>
                 </span>
                 <span className={`num ${styles.cloudValue}`}>
-                  {Math.round(h.cloud)}%<span className="visually-hidden"> cloud at {fmt(h.time)}</span>
+                  {Math.round(h.cloud)}%<span className="visually-hidden"> cloud at {fmt(h.time)}{past ? ", already past" : ""}</span>
                 </span>
               </Perf>
             </li>
@@ -344,7 +345,7 @@ export default function Tonight() {
   }, [kp, night]);
 
   const aurora = magLat !== undefined && nightKp !== undefined ? auroraOutlook(magLat, nightKp) : undefined;
-  const sky = night?.value ? skyVerdict(night.value, hourFormat(night.value.timezone)) : undefined;
+  const sky = night?.value ? skyVerdict(night.value, hourFormat(night.value.timezone), now) : undefined;
   const moon = moonPhase(night?.value ? (night.value.sunset + night.value.sunrise) / 2 : now);
 
   const headline = place
